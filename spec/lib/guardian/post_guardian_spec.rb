@@ -340,8 +340,22 @@ RSpec.describe PostGuardian do
   end
 
   describe "#can_unhide?" do
-    xit do
-      # TODO: Add coverage
+    it "returns false when the post is not hidden" do
+      post.update(hidden: false)
+
+      expect(Guardian.new(moderator).can_unhide?(post)).to be_falsey
+    end
+
+    it "returns false for a non-staff user" do
+      post.update(hidden: true)
+
+      expect(Guardian.new(user).can_unhide?(post)).to be_falsey
+    end
+
+    it "returns true for a staff user" do
+      post.update(hidden: true)
+
+      expect(Guardian.new(moderator).can_unhide?(post)).to be_falsey
     end
   end
 
