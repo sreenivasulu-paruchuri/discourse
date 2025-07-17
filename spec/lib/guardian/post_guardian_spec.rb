@@ -543,8 +543,28 @@ RSpec.describe PostGuardian do
   end
 
   describe "#can_edit_hidden_post?" do
-    xit do
-      # TODO: Add coverage
+    it "returns true if the post is not hidden" do
+      post.update(hidden: false)
+
+      expect(Guardian.new(user).can_edit_hidden_post?(post)).to be_truthy
+    end
+
+    it "returns true when the cooldown has passed" do
+      post.update(
+        hidden: true,
+        hidden_at: SiteSetting.cooldown_minutes_after_hiding_posts.minutes.ago - 1.minute,
+      )
+
+      expect(Guardian.new(user).can_edit_hidden_post?(post)).to be_truthy
+    end
+
+    it "returns false when the cooldown hasn't passed" do
+      post.update(
+        hidden: true,
+        hidden_at: SiteSetting.cooldown_minutes_after_hiding_posts.minutes.ago + 1.minute,
+      )
+
+      expect(Guardian.new(user).can_edit_hidden_post?(post)).to be_falsey
     end
   end
 
