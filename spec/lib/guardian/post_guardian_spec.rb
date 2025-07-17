@@ -276,8 +276,28 @@ RSpec.describe PostGuardian do
   end
 
   describe "#can_lock_post?" do
-    xit do
-      # TODO: Add coverage
+    it "returns false for a regular user allowed to see the post" do
+      guardian = Guardian.new(user)
+
+      guardian.stubs(:can_see_post?).returns(true)
+
+      expect(guardian.can_lock_post?(post)).to be_falsey
+    end
+
+    it "returns false for a staff user not allowed to see the post" do
+      guardian = Guardian.new(moderator)
+
+      guardian.stubs(:can_see_post?).returns(false)
+
+      expect(guardian.can_lock_post?(post)).to be_falsey
+    end
+
+    it "returns true for a staff user allowed to see the post" do
+      guardian = Guardian.new(moderator)
+
+      guardian.stubs(:can_see_post?).returns(true)
+
+      expect(guardian.can_lock_post?(post)).to be_truthy
     end
   end
 
