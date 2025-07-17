@@ -360,8 +360,16 @@ RSpec.describe PostGuardian do
   end
 
   describe "#can_skip_bump?" do
-    xit do
-      # TODO: Add coverage
+    it "returns false for an unprivileged user" do
+      expect(Guardian.new(user).can_skip_bump?).to be_falsey
+    end
+
+    it "returns true for a staff user" do
+      expect(Guardian.new(moderator).can_skip_bump?).to be_truthy
+    end
+
+    it "returns true for a TL4 user" do
+      expect(Guardian.new(trust_level_4).can_skip_bump?).to be_truthy
     end
   end
 
