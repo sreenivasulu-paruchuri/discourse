@@ -16,3 +16,15 @@ if ENV["RAILS_ENV"] == "production"
   state_path "#{APP_ROOT}/tmp/pids/puma.state"
   preload_app!
 end
+
+port ENV.fetch("PORT") { 4000 }
+
+if Rails.env.development?
+  ssl_bind "0.0.0.0",
+           "4201",
+           {
+             key: "config/ssl/local.discourse.pega.com-key.pem",
+             cert: "config/ssl/local.discourse.pega.com.pem",
+             verify_mode: "none",
+           }
+end

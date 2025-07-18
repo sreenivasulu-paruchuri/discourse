@@ -9,7 +9,7 @@
     3000, // bin/rails s
     4200, // ember-cli
     8025, // mailhog
-    9229  // chrome remote debug
+    9229 // chrome remote debug
   ],
   "remoteUser": "discourse",
   "remoteEnv": {
@@ -18,7 +18,6 @@
     "SELENIUM_FORWARD_DEVTOOLS_TO_PORT": "9229",
   },
   "mounts": [
-    // "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
     "source=${localWorkspaceFolderBasename}-pg,target=/shared/postgres_data,type=volume",
     "source=${localWorkspaceFolderBasename}-redis,target=/shared/redis,type=volume"
   ],

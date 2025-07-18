@@ -85,6 +85,7 @@
 
 # Likewise, there are sample files for VSCode config
 /.vscode/*
+/.idea/*
 !/.vscode/extensions.json
 !/.vscode/*.sample
 
