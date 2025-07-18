@@ -99,7 +99,7 @@ else
 fi
 
 docker run -d \
-    -p $local_publish:8025:8025 \
+    -p $local_publish:8027:8025 \
     -p $local_publish:3000:3000 \
     -p $local_publish:4200:4200 \
     -p $local_publish:9292:9292 \
