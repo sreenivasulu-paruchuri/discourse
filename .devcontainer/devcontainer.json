@@ -4,6 +4,7 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/discourse,type=bind",
   "workspaceFolder": "/workspace/discourse",
   "postStartCommand": "./.devcontainer/scripts/start.rb",
+  "postCreateCommand": "sudo chown -R discourse:discourse ${containerWorkspaceFolder}/node_modules",
   "forwardPorts": [
     9292, // bin/unicorn
     3000, // bin/rails s
@@ -18,6 +19,7 @@
     "SELENIUM_FORWARD_DEVTOOLS_TO_PORT": "9229",
   },
   "mounts": [
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
     "source=${localWorkspaceFolderBasename}-pg,target=/shared/postgres_data,type=volume",
     "source=${localWorkspaceFolderBasename}-redis,target=/shared/redis,type=volume"
   ],
