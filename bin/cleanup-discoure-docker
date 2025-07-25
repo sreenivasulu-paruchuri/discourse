@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "🔍 Finding and removing Discourse containers..."
+docker ps -a --format "{{.ID}} {{.Image}}" | grep "^.*discourse/discourse_dev" | awk '{print $1}' | xargs -r docker rm -f
+
+echo "🧊 Finding and removing Discourse images..."
+echo "If there are child images need to delete first, use 'docker images --filter since=d4e507d2ceea'"
+docker images --format "{{.ID}} {{.Repository}}:{{.Tag}}" | grep "discourse/discourse_dev" | awk '{print $1}' | xargs -r docker rmi -f
+
+echo "📦 Finding and removing Discourse volumes..."
+docker volume ls --format "{{.Name}}" | grep discourse | xargs -r docker volume rm
+
+echo "✅ Discourse cleanup complete."
